@@ -1,0 +1,16 @@
+[[constraint]]
+  name = "github.com/brutella/hc"
+  branch = "chris-rock/setupid"
+  source = "https://github.com/chris-rock/hc.git"
+
+[[constraint]]
+  name = "github.com/bpicode/fritzctl"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/skip2/go-qr-code"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/manifoldco/promptui"
+  branch = "master"
