@@ -1,0 +1,19 @@
+version: "0.0.1-{build}-unofficial-ci-appveyor"
+
+clone_folder: c:\gopath\src\github.com\bpicode\fritzctl
+
+environment:
+  GOPATH: c:\gopath
+
+install:
+  - set PATH=c:\go\bin;%GOPATH%\bin;%PATH%
+  - echo %PATH%
+  - echo %GOPATH%
+  - go version
+  - go env
+
+build_script:
+  - go build
+
+test_script:
+  - for /f "" %%G in ('go list ./... ^| find /i /v "/vendor/"') do ( go test -race %%G & IF ERRORLEVEL == 1 EXIT 1)

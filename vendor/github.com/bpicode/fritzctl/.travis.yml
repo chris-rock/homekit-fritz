@@ -1,0 +1,15 @@
+sudo: false
+
+language: go
+
+go:
+  - 1.9.2
+
+go_import_path: github.com/bpicode/fritzctl
+
+script:
+  - make clean all dist_all
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - curl -XPOST https://goreportcard.com/checks -F 'repo=github.com/bpicode/fritzctl'
