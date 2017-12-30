@@ -3,8 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/brutella/hc/accessory"
-	"github.com/chris-rock/homekit-fritz/setupcode"
+	"github.com/chris-rock/homekit-fritz/homekit"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -15,13 +14,14 @@ var setupcodeCmd = &cobra.Command{
 	Short: "Print HomeKit SetupCode",
 	Long:  `This command prints the setup code that can be used within the Home app`,
 	Run: func(cmd *cobra.Command, args []string) {
-		pin := viper.GetString("homekit.pin")
-		setupid := viper.GetString("homekit.setupid")
-		xhmuri := setupcode.GenXhmUri(uint(accessory.TypeBridge), 0, pin, setupid)
-		qrcode := setupcode.GenCliQRCode(xhmuri)
+		hk := &homekit.HKConfig{
+			Pin:     viper.GetString("homekit.pin"),
+			SetupID: viper.GetString("homekit.setupid"),
+		}
+
 		fmt.Println("HomeKit setup qr code:")
-		fmt.Println(qrcode)
-		fmt.Printf("HomeKit setup code: %s\n", pin)
+		homekit.Qrcode(hk)
+		fmt.Printf("HomeKit setup code: %s\n", hk.Pin)
 	},
 }
 

@@ -10,39 +10,43 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Configuration
-type HomeKitConfig struct {
+// HKConfig contains the configuration for the HomeKit service
+type HKConfig struct {
 	Pin     string `yaml:"pin"`
-	SetupId string `yaml:"setupid"`
+	SetupID string `yaml:"setupid"`
 }
 
+// FritzBoxConfig contains the confiratioin to access the Fritz!Box API
 type FritzBoxConfig struct {
-	Url      string `yaml:"url"`
+	URL      string `yaml:"url"`
 	Username string `yaml:"username"`
 	Password string `yaml:"password"`
 	Insecure bool   `yaml:"insecure"`
 }
 
+// GetFritzBoxURL parses the url and return its object
 func (fbc *FritzBoxConfig) GetFritzBoxURL() *url.URL {
-	url, err := url.Parse(fbc.Url)
+	url, err := url.Parse(fbc.URL)
 	if err != nil {
 		return nil
 	}
 	return url
 }
 
+// Config combines the Fritz!Box and the HomeKit configuration
 type Config struct {
-	HomeKit  *HomeKitConfig  `yaml:"homekit"`
+	HomeKit  *HKConfig       `yaml:"homekit"`
 	FritzBox *FritzBoxConfig `yaml:"fritzbox"`
 }
 
-func Qrcode(hk *HomeKitConfig) {
-	xhmuri := setupcode.GenXhmUri(uint(accessory.TypeBridge), 0, hk.Pin, hk.SetupId)
+// Qrcode prints out the setup code based on the configuration
+func Qrcode(hk *HKConfig) {
+	xhmuri := setupcode.GenXhmURI(uint(accessory.TypeBridge), 0, hk.Pin, hk.SetupID)
 	qrcode := setupcode.GenCliQRCode(xhmuri)
 	fmt.Println(qrcode)
 }
 
-// Service Implementation
+// Start is the HomeKit service that runs when you start `hkfritz serve`
 func Start(config *Config) {
 
 	// create fritzbox gateway
@@ -52,7 +56,7 @@ func Start(config *Config) {
 	hkDevices, err := ListHKDevices(config.FritzBox)
 
 	// configure homekit service
-	hcconfig := hc.Config{Pin: config.HomeKit.Pin, SetupId: config.HomeKit.SetupId}
+	hcconfig := hc.Config{Pin: config.HomeKit.Pin, SetupId: config.HomeKit.SetupID}
 
 	// create fritzbox as bridge device with all attached home kit devices
 	t, err := hc.NewIPTransport(hcconfig, fbBridge, hkDevices...)

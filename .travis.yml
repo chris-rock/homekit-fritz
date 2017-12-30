@@ -1,0 +1,27 @@
+language: go
+branches:
+  only:
+    - master
+
+sudo: required
+
+go:
+  - 1.9
+
+install:
+  - make install/golint
+
+matrix:
+  include:
+  - script: make $TASK
+    env: TASK="build/linux-arm"
+  - script: make $TASK
+    env: TASK="build/linux-amd64"
+  - script: make $TASK
+    env: TASK="build/macos-amd64"
+  - script: make $TASK
+    env: TASK="test/lint"
+  - script: make $TASK
+    env: TASK="test/unit"
+  - script: make $TASK
+    env: TASK="test/vet"

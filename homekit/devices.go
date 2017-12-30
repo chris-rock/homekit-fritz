@@ -9,6 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// NewHKSwitch creates a new switch for Fritz!DECT 200 devices
 func NewHKSwitch(info accessory.Info, h fritz.HomeAuto, fdevice fritz.Device) (*accessory.Accessory, error) {
 	logrus.Debugf("create new HomeKit outlet device %v", info)
 
@@ -36,6 +37,7 @@ func NewHKSwitch(info accessory.Info, h fritz.HomeAuto, fdevice fritz.Device) (*
 	return acc.Accessory, nil
 }
 
+// NewHKThermostat creates a new thermostat for Fritz!DECT 30x devices
 func NewHKThermostat(info accessory.Info, h fritz.HomeAuto, fdevice fritz.Device) (*accessory.Accessory, error) {
 	logrus.Debugf("create new HomeKit thermostat device %v", info)
 
@@ -64,6 +66,7 @@ func NewHKThermostat(info accessory.Info, h fritz.HomeAuto, fdevice fritz.Device
 	return acc.Accessory, nil
 }
 
+// NewHomeKitDevice will create a HomeKit device based on the information about the Fritz!Device
 func NewHomeKitDevice(h fritz.HomeAuto, fdevice fritz.Device) (*accessory.Accessory, error) {
 	logrus.Infof("register %s", fdevice.Name)
 
