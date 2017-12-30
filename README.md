@@ -3,14 +3,15 @@
 This project adds the missing feature of a HomeKit Bridge to all Fritz!Box smart home devices.
 
 Note: This is a hobby project and was stated by a few questions:
-- How does homekit work?
+
+- How does HomeKit work?
 - What is required to run a secure environment for smart home devices?
-- Can everything on raspberry pi 1
-- How can I manage my devices with Siri
+- Can everything run on RaspberryPi 1
+- How can I manage my smart home devices with Siri
 
 ## Features
 
-- no need for exposing Fritz!Box to internet
+- no need for exposing Fritz!Box to public internet
 - easy setup with HomeKit setup codes
 
 ## Tested Devices
@@ -49,5 +50,5 @@ This project is built ontop of the great libraries:
 
 ## Author
 
-- Christopoh Hartmann
+- Christoph Hartmann
 

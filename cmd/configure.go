@@ -38,7 +38,7 @@ var configureCmd = &cobra.Command{
 		// initialize config
 		cfg := &homekit.Config{
 			FritzBox: &homekit.FritzBoxConfig{},
-			HomeKit:  &homekit.HomeKitConfig{},
+			HomeKit:  &homekit.HKConfig{},
 		}
 
 		validateURL := func(input string) error {
@@ -59,7 +59,7 @@ var configureCmd = &cobra.Command{
 			fmt.Printf("Prompt failed %v\n", err)
 			return
 		}
-		cfg.FritzBox.Url = fbURL
+		cfg.FritzBox.URL = fbURL
 
 		prompt = promptui.Prompt{
 			Label:     "Self-signed certificate",
@@ -94,7 +94,7 @@ var configureCmd = &cobra.Command{
 		// generate PIN and Setup Code
 		cfg.HomeKit.Pin = fmt.Sprintf("%08d", rand.Intn(100000000))
 		// generate setup id
-		cfg.HomeKit.SetupId = randStringBytesRmndr(4)
+		cfg.HomeKit.SetupID = randStringBytesRmndr(4)
 
 		d, err := yaml.Marshal(cfg)
 		if err != nil {

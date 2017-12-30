@@ -11,6 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// CreateBridge reads the Fritz!Box information and creates a HomeKit Bridge device
 func CreateBridge(fbConfig *FritzBoxConfig) (*accessory.Accessory, error) {
 
 	fburl := fbConfig.GetFritzBoxURL()

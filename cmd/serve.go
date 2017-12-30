@@ -14,14 +14,14 @@ var serveCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		setLogging()
 
-		hk := &homekit.HomeKitConfig{
+		hk := &homekit.HKConfig{
 			Pin:     viper.GetString("homekit.pin"),
-			SetupId: viper.GetString("homekit.setupid"),
+			SetupID: viper.GetString("homekit.setupid"),
 		}
 		fb := &homekit.FritzBoxConfig{
 			Username: viper.GetString("fritzbox.username"),
 			Password: viper.GetString("fritzbox.password"),
-			Url:      viper.GetString("fritzbox.url"),
+			URL:      viper.GetString("fritzbox.url"),
 		}
 
 		config := &homekit.Config{
@@ -36,8 +36,6 @@ var serveCmd = &cobra.Command{
 		homekit.Start(config)
 	},
 }
-
-var servce_hk_pin string
 
 func init() {
 	rootCmd.AddCommand(serveCmd)

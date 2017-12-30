@@ -6,6 +6,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// ListHKDevices reads all smart home devices from Fritz!Box and maps them
+// to HomeKit devices
 func ListHKDevices(fbConfig *FritzBoxConfig) ([]*accessory.Accessory, error) {
 
 	h := fritz.NewHomeAuto(
