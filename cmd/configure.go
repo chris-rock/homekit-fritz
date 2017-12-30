@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"time"
 
 	"github.com/chris-rock/homekit-fritz/homekit"
 	yaml "gopkg.in/yaml.v2"
@@ -91,6 +92,8 @@ var configureCmd = &cobra.Command{
 		}
 		cfg.FritzBox.Password = fbPassword
 
+		// seed random generator
+		rand.Seed(time.Now().UnixNano())
 		// generate PIN and Setup Code
 		cfg.HomeKit.Pin = fmt.Sprintf("%08d", rand.Intn(100000000))
 		// generate setup id
