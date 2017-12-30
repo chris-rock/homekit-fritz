@@ -21,9 +21,11 @@ func GenXhmURI(category uint, hapType uint, pin string, setupID string) string {
 	payload = 0
 	cat := category << 31
 	payload |= int64(cat)
+	logrus.Debugf("payload with cat: %d", payload)
 
 	ip := 1 << 28
 	payload |= int64(ip)
+	logrus.Debugf("payload with ip: %d", payload)
 
 	u, err := strconv.ParseUint(pin, 10, 64)
 	if err != nil {
@@ -31,9 +33,11 @@ func GenXhmURI(category uint, hapType uint, pin string, setupID string) string {
 	}
 
 	payload |= int64(u)
+	logrus.Debugf("payload with pin: %d", payload)
 
 	// covert to base 36
 	s36 := strings.ToUpper(strconv.FormatInt(payload, 36))
+	logrus.Debugf("payload base36: %s", s36)
 
 	content := prefix + s36 + setupID
 	return content

@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/chris-rock/homekit-fritz/homekit"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -34,6 +35,9 @@ var serveCmd = &cobra.Command{
 
 		// print qr code
 		homekit.Qrcode(hk)
+
+		// print PIN for manual addition
+		logrus.Infof("Setup PIN: %s", hk.Pin)
 
 		// start service
 		err := homekit.Start(config)
