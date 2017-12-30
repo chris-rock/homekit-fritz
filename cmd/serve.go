@@ -1,6 +1,9 @@
 package cmd
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/chris-rock/homekit-fritz/homekit"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -33,7 +36,11 @@ var serveCmd = &cobra.Command{
 		homekit.Qrcode(hk)
 
 		// start service
-		homekit.Start(config)
+		err := homekit.Start(config)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 	},
 }
 

@@ -41,6 +41,7 @@ func GenXhmURI(category uint, hapType uint, pin string, setupID string) string {
 
 // GenCliQRCode takes a xhm uri string and returns the qr code as string
 func GenCliQRCode(xhm string) string {
+	logrus.Debugf("X-HM URL: %s", xhm)
 	var q *qrcode.QRCode
 	q, err := qrcode.New(xhm, qrcode.Highest)
 	if err != nil {

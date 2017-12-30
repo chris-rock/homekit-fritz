@@ -48,13 +48,19 @@ func Qrcode(hk *HKConfig) {
 }
 
 // Start is the HomeKit service that runs when you start `hkfritz serve`
-func Start(config *Config) {
+func Start(config *Config) error {
 
 	// create fritzbox gateway
 	fbBridge, err := CreateBridge(config.FritzBox)
+	if err != nil {
+		return err
+	}
 
 	// read smart home devices
 	hkDevices, err := ListHKDevices(config.FritzBox)
+	if err != nil {
+		return err
+	}
 
 	// configure homekit service
 	hcconfig := hc.Config{Pin: config.HomeKit.Pin, SetupId: config.HomeKit.SetupID}
@@ -62,7 +68,7 @@ func Start(config *Config) {
 	// create fritzbox as bridge device with all attached home kit devices
 	t, err := hc.NewIPTransport(hcconfig, fbBridge, hkDevices...)
 	if err != nil {
-		logrus.Panic(err)
+		return err
 	}
 
 	hc.OnTermination(func() {
@@ -70,4 +76,5 @@ func Start(config *Config) {
 	})
 
 	t.Start()
+	return nil
 }
