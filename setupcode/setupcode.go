@@ -16,24 +16,24 @@ import (
 func GenXhmURI(category uint, hapType uint, pin string, setupID string) string {
 
 	prefix := "X-HM://00"
-	var payload uint64
+	var payload int64
 
 	payload = 0
 	cat := category << 31
-	payload |= uint64(cat)
+	payload |= int64(cat)
 
 	ip := 1 << 28
-	payload |= uint64(ip)
+	payload |= int64(ip)
 
 	u, err := strconv.ParseUint(pin, 10, 64)
 	if err != nil {
 		logrus.Error(err)
 	}
 
-	payload |= uint64(u)
+	payload |= int64(u)
 
 	// covert to base 36
-	s36 := strings.ToUpper(strconv.FormatUint(payload, 36))
+	s36 := strings.ToUpper(strconv.FormatInt(payload, 36))
 
 	content := prefix + s36 + setupID
 	return content
