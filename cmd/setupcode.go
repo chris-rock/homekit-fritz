@@ -14,6 +14,8 @@ var setupcodeCmd = &cobra.Command{
 	Short: "Print HomeKit SetupCode",
 	Long:  `This command prints the setup code that can be used within the Home app`,
 	Run: func(cmd *cobra.Command, args []string) {
+		setLogging()
+
 		hk := &homekit.HKConfig{
 			Pin:     viper.GetString("homekit.pin"),
 			SetupID: viper.GetString("homekit.setupid"),
