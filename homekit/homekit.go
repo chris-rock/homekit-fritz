@@ -42,7 +42,7 @@ type Config struct {
 // Qrcode prints out the setup code based on the configuration
 func Qrcode(hk *HKConfig) {
 	logrus.Debugf("Generate setupcode (Pin: %s, SetupID: %s Category: %d HapType: %d)", hk.Pin, hk.SetupID, uint(accessory.TypeBridge), 0)
-	xhmuri := setupcode.GenXhmURI(uint(accessory.TypeBridge), 0, hk.Pin, hk.SetupID)
+	xhmuri := setupcode.GenXhmURI(int64(accessory.TypeBridge), 0, hk.Pin, hk.SetupID)
 	qrcode := setupcode.GenCliQRCode(xhmuri)
 	fmt.Println(qrcode)
 }
